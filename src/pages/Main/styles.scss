@@ -1,38 +1,72 @@
-#main-container{
-    height: 100%;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    img{
-        width:200px;
-    }
-    form {
-        width: 300px;
-        display: flex;
-        flex-direction:column;
-        input{
-            height: 48px;
-            border: 1px solid #ddd;
-            border-radius:4px;
-            font-size: 16px;
-            padding: 0 20px;
-            margin-top:30px;
-        }
-        button{
-            height: 48px;
-            border-radius:4px;
-            background: #7159c7;
-            font-size: 16px;
-            padding: 0 20px;
-            margin-top:10px;
-            color:#fff; 
-            border:0;
-            cursor: pointer;
-            font-weight: bold;
-            &:hover{
-                opacity: 0.8;
-            }
-        }
-    }
-}
+$color_alto_approx: #ddd;
+$color_mountain_mist_approx: #999;
+$color_gallery_approx: #eee;
+$color_mine_shaft_approx: #333;
 
+#main-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ul {
+    margin: 30px 0;
+    list-style: none;
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      + li {
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top: 1px solid $color_gallery_approx;
+      }
+      .fileInfo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        strong {
+          font-weight: normal;
+          font-size: 14px;
+          margin-left: 10px;
+          color: $color_mine_shaft_approx;
+        }
+      }
+      span {
+        color: $color_mountain_mist_approx;
+        font-size: 13px;
+      }
+    }
+  }
+
+  img {
+    width: 200px;
+  }
+  form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    input {
+      height: 48px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      padding: 0 20px;
+      margin-top: 30px;
+    }
+    button {
+      height: 48px;
+      border-radius: 4px;
+      background: #7159c7;
+      font-size: 16px;
+      padding: 0 20px;
+      margin-top: 10px;
+      color: #fff;
+      border: 0;
+      cursor: pointer;
+      font-weight: bold;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
