@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../../assets/logo.svg'
 import { MdInsertDriveFile } from 'react-icons/md';
 import './styles.scss';
 import api from '../../services/api'
@@ -7,6 +6,7 @@ import { distanceInWords } from 'date-fns'
 import pt from 'date-fns/locale/pt';
 import Dropzone from 'react-dropzone'
 import socket from 'socket.io-client';
+import MenuLateral from '../../components/Menu'
 
 export default class Box extends Component {
     state = {
@@ -43,40 +43,40 @@ export default class Box extends Component {
 
     render() {
         return (
-            <div id="box-container">
-                <header>
-                    <img src={logo} alt="" />
-                    <h1>{this.state.box.title}</h1>
+            <React.Fragment>
+            {this.state.box.title? 
+                <MenuLateral appTitle={this.state.box.title} boxAtive={this.state.box._id} /> : null }
+                <div id="box-container">
+                <h1>{this.state.box.title}</h1>
+                    <Dropzone onDropAccepted={this.handleUpload}>
 
-                </header>
-                <Dropzone onDropAccepted={this.handleUpload}>
+                        {
+                            ({ getRootProps, getInputProps }) => (
+                                <div className="upload" {...getRootProps() } >
+                                    <input {...getInputProps() } />
+                                    <p>Arraste arquivos ou clique aqui</p>
+                                </div>
+                            )
+                        }
 
-                    {
-                        ({ getRootProps, getInputProps }) => (
-                            <div className="upload" {...getRootProps()} >
-                                <input {...getInputProps()} />
-                                <p>Arraste arquivos ou clique aqui</p>
-                            </div>
-                        )
-                    }
+                    </Dropzone>
+                    <ul>
+                        {this.state.box.files && this.state.box.files.map(file => (
+                            <li key={file.id}>
+                                <a href={file.url} className="FileInfo">
+                                    <MdInsertDriveFile size={24} color="#a5cfff" />
+                                    <strong>{file.title}</strong>
+                                </a>
 
-                </Dropzone>
-                <ul>
-                    {this.state.box.files && this.state.box.files.map(file => (
-                        <li key={file.id}>
-                            <a href={file.url} className="FileInfo">
-                                <MdInsertDriveFile size={24} color="#a5cfff" />
-                                <strong>{file.title}</strong>
-                            </a>
+                                <span>há{" "}{distanceInWords(file.createdAt, new Date(), { locale: pt })}</span>
 
-                            <span>há{" "}{distanceInWords(file.createdAt, new Date(), { locale: pt })}</span>
-
-                        </li>
-                    ))}
-                </ul>
+                            </li>
+                        ))}
+                    </ul>
 
 
-            </div>
+                </div>
+            </React.Fragment>
         );
     }
 }
